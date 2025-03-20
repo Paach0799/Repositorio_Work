@@ -27,42 +27,144 @@ namespace RevisionModelos
             List<Element> views = document.GetViews();
             List<Element> sheets = document.GetSheets();
 
-            TaskDialogResult mensaje01 = TaskDialog.Show("INICIO DE APLICACION", "Se inicia el comando ");
+            //Informacion de muestra
+            List<string> conteos = new List<string> { "Cantidad de instances: " + ids.Count.ToString(), "Cantidad de vistas: " + views.Count.ToString(), "Cantidad de planos: " + sheets.Count.ToString() };
+            string mensajeConteo = string.Join("\n", conteos);
+            TaskDialogResult mensajecontador = TaskDialog.Show("Elementos encontrados", mensajeConteo);
 
-            // Mostrar informacion en el proceso
-            TaskDialogResult mensaje02 = TaskDialog.Show("Elementos encontrados", $"Se encontraron {ids.Count} instancias.");
-            TaskDialogResult mensaje03 = TaskDialog.Show("Vistas encontradas", $"Se encontraron {views.Count} vistas.");
-            TaskDialogResult mensaje04 = TaskDialog.Show("Planos encontrados", $"Se encontraron {sheets.Count} planos.");
+            #region OBTENER PARAMETROS DE VISTAS
 
-            //Obtencion de parametros de las vistas
+            //Lista de valor de los parametros name
+            List<string> valoresName = new List<string>();
+
+            //Obtencion de parametro name de las vistas
             foreach (Element vista in views)
             {
+                string parametroName = vista.Name;
+                if (parametroName != null)
+                {
+                    valoresName.Add(parametroName);
+                }
+                else
+                {
+                    valoresName.Add("Sin valor");
+                }
 
-                
             }
 
-            #region Crear archivo excel
+            //Lista de valor de los parametros grupo
+            List<string> valoresGrupo = new List<string>();
+
+            //Obtencion de parametro grupos de las vistas
+            foreach (Element vista in views)
+            {
+                Parameter parametroGrupo = vista.LookupParameter("BRH_GRUPO_NAVEGADOR");
+                if (parametroGrupo != null && parametroGrupo.HasValue)
+                {
+                    valoresGrupo.Add(parametroGrupo.AsString());
+                }
+                else
+                {
+                    valoresGrupo.Add("Sin valor");
+                }
+
+            }
+
+            //Lista de valor de los parametros Sub grupo
+            List<string> valoresSubGrupo = new List<string>();
+
+            //Obtencion de parametro grupos de las vistas
+            foreach (Element vista in views)
+            {
+                Parameter parametroSubGrupo = vista.LookupParameter("BRH_GRUPO_NAVEGADOR");
+                if (parametroSubGrupo != null && parametroSubGrupo.HasValue)
+                {
+                    valoresSubGrupo.Add(parametroSubGrupo.AsString());
+                }
+                else
+                {
+                    valoresSubGrupo.Add("Sin valor");
+                }
+
+            }
+
+            #endregion
+
+            #region CREAR ARCHIVO EXCEL
+
             //Definir varibles para archivo excel
             string rutaExcel = @"D:\WIP_SCRIPTS\INP\Check_Models.xlsx";
 
-            // Crear libro de excel
+            #endregion
+
+            // Abrir libro de excel
             using (var workbook = new XLWorkbook(rutaExcel))
             {
-                // Obtener hoja de excel
+
+                // Obtener hoja de excel de vistas
                 var primeraHoja = workbook.Worksheet("VISTAS");
 
-                //Escribir datos en la hoja
-                // Buscar la primera fila vacía para escribir los datos nuevos
-                int lastRow = primeraHoja.LastRowUsed().RowNumber() + 1;
+                // Obtener hoja de excel de planos
+                var segundaHoja = workbook.Worksheet("SHEETS");
 
-                // Escribir los datos en la primera hoja
-                primeraHoja.Cell(lastRow, 1).Value = "Prueba de primera celda";
+                // Obtener hoja de excel de familias
+                var terceraHoja = workbook.Worksheet("FAMILIAS");
+
+                // Obtener hoja de excel de parametros de elementos
+                var cuartaHoja = workbook.Worksheet("PARAMETROS_ELEMENTOS");
+
+                //Escribir datos en la hoja
+
+                // Buscar la primera fila vacía para escribir los datos nuevos
+                int lastRowColumn1 = 2;
+
+                #region NOMBRES DE VISTAS
+
+
+                foreach (string nameVista in valoresName)
+                {
+                    
+
+                    primeraHoja.Cell(lastRowColumn1, 1).Value = nameVista;
+                    lastRowColumn1++;
+                }
+
+
+                #endregion
+
+
+                #region GRUPOS DE VISTAS
+
+                int lastRowColumn2 = 2;
+                foreach (string grupoVista in valoresGrupo)
+                {
+
+                    primeraHoja.Cell(lastRowColumn2,2).Value = grupoVista;
+                    lastRowColumn2++;
+
+                }
+
+                #endregion
+
+
+                #region SUBGRUPOS DE VISTAS
+
+                int lastRowColumn3 = 2;
+                foreach (string subGrupoVista in valoresSubGrupo)
+                {
+
+                    primeraHoja.Cell(lastRowColumn3, 3).Value = subGrupoVista;
+                    lastRowColumn3++;
+
+                }
+
+                #endregion
+
 
                 //Guardar archivo
                 workbook.SaveAs(rutaExcel);
+                TaskDialogResult ts = TaskDialog.Show("Mensaje", "Archivo Guardado");
             }
-            #endregion
-
 
             return Result.Succeeded;
         }
