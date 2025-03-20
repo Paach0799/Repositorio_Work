@@ -34,6 +34,14 @@ namespace RevisionModelos
             TaskDialogResult mensaje03 = TaskDialog.Show("Vistas encontradas", $"Se encontraron {views.Count} vistas.");
             TaskDialogResult mensaje04 = TaskDialog.Show("Planos encontrados", $"Se encontraron {sheets.Count} planos.");
 
+            //Obtencion de parametros de las vistas
+            foreach (Element vista in views)
+            {
+
+                
+            }
+
+            #region Crear archivo excel
             //Definir varibles para archivo excel
             string rutaExcel = @"D:\WIP_SCRIPTS\INP\Check_Models.xlsx";
 
@@ -48,12 +56,12 @@ namespace RevisionModelos
                 int lastRow = primeraHoja.LastRowUsed().RowNumber() + 1;
 
                 // Escribir los datos en la primera hoja
-                primeraHoja.Cell(lastRow, 1).Value = "Hola Rox";
+                primeraHoja.Cell(lastRow, 1).Value = "Prueba de primera celda";
 
                 //Guardar archivo
                 workbook.SaveAs(rutaExcel);
             }
-
+            #endregion
 
 
             return Result.Succeeded;
