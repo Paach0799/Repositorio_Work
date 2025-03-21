@@ -28,19 +28,19 @@ namespace RevisionModelos.Extensions
             List<Element> sheets = collector.OfClass(typeof(ViewSheet)).ToElements().ToList();
             return sheets;
         }
-        public static List<ElementId> GetInstances(this Document document)
+        public static List<Element> GetInstances(this Document document)
         {
             //codigo obtencion de instancias
-            List<ElementId> instancesIds = new List<ElementId>();
+            List<Element> instances = new List<Element>();
 
             FilteredElementCollector collector = new FilteredElementCollector(document);
-            List<Element> instances = collector.OfClass(typeof(FamilyInstance)).ToElements().ToList();
-            foreach (Element instance in instances)
+            List<Element> Types = collector.OfClass(typeof(FamilyInstance)).ToElements().ToList();
+            foreach (Element inst in instances)
             {
-                instancesIds.Add(instance.Id);
+                instances.Add(inst);
             }
 
-            return instancesIds;
+            return instances;
         }   
     }
 }

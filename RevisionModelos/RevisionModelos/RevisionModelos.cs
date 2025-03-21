@@ -8,7 +8,9 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
+
 using RevisionModelos.Extensions;
+using RevisionModelos.Utils;
 
 using ClosedXML.Excel;
 
@@ -23,12 +25,12 @@ namespace RevisionModelos
             UIDocument uiDocument = commandData.Application.ActiveUIDocument;
             Document document = uiDocument.Document;
 
-            List<ElementId> ids = document.GetInstances();
+            List<Element> instancesFamily = document.GetInstances();
             List<Element> views = document.GetViews();
             List<Element> sheets = document.GetSheets();
 
             //Informacion de muestra
-            List<string> conteos = new List<string> { "Cantidad de instances: " + ids.Count.ToString(), "Cantidad de vistas: " + views.Count.ToString(), "Cantidad de planos: " + sheets.Count.ToString() };
+            List<string> conteos = new List<string> { "Cantidad de instances: " + instancesFamily.Count.ToString(), "Cantidad de vistas: " + views.Count.ToString(), "Cantidad de planos: " + sheets.Count.ToString() };
             string mensajeConteo = string.Join("\n", conteos);
             TaskDialogResult mensajecontador = TaskDialog.Show("Elementos encontrados 👇", mensajeConteo);
 
@@ -166,10 +168,10 @@ namespace RevisionModelos
                 var segundaHoja = workbook.Worksheet("SHEETS");
 
                 // Obtener hoja de excel de familias
-                var terceraHoja = workbook.Worksheet("FAMILIAS");
+                var terceraHoja = workbook.Worksheet("PARAMETROS_ELEMENTOS");
 
                 // Obtener hoja de excel de parametros de elementos
-                var cuartaHoja = workbook.Worksheet("PARAMETROS_ELEMENTOS");
+                var cuartaHoja = workbook.Worksheet("FAMILIAS");
 
                 //Escribir datos en la hoja
 
@@ -270,18 +272,36 @@ namespace RevisionModelos
 
                 TaskDialogResult ts2 = TaskDialog.Show("Aviso 02 👇", "Hoja 02 completada 🚀");
 
-                //Obtencion de parametros de cada instancia id 
-
-                List<Element> listaInstancias = new List<Element>();
-
-                foreach (ElementId id in ids)
-                {
-                    Element instancia = document.GetElement(id);
-                    listaInstancias.Add(instancia);
-                }
+                #region TERCERA HOJA EN PROCESO
 
                 //Obtencion de parametros de cada instancia
-                List<string> nameParameters = new List<string> { "BRH_CategoriaElemento", "BRH_CodigoElemento", "BRH_ComponenteElemento", "BRH_IdElemento", "BRH_MetradoElemento", "BRH_SectorElemento", "BRH_SubSectorElemento", "BRH_TipoELemento", "BRH_TramoElemento"};
+                List<string> nameParameters = new List<string> { "BRH_CategoriaElemento", "BRH_CodigoElemento", "BRH_ComponenteElemento", "BRH_IdElemento", "BRH_MetradoElemento", "BRH_SectorElemento", "BRH_SubSectorElemento", "BRH_TipoELemento", "BRH_TramoElemento" };
+
+                List<List<string>> valoresParametrosTypes = new List<List<string>>();
+
+                #endregion
+
+                //Obtencion de nombre de cada familia
+
+                List<string> listaTypes = new List<string>();
+
+                foreach (FamilyInstance instance in instancesFamily)
+                {
+                    FamilySymbol symbol = instance.Symbol;
+                    if (symbol != null)
+                    {
+                        string familyName = symbol.FamilyName; //-----------> Nombre de la familia
+                        string typeName = symbol.Name; //-----------> Nombre del tipo de familia
+                        listaTypes.Add(familyName);
+                    }
+                }
+
+                int lastRow4_1 = 2;
+                foreach (string type in listaTypes)
+                {
+                    cuartaHoja.Cell(lastRow4_1, 1).Value = type;
+                    lastRow4_1++;
+                }
 
                 //Guardar archivo
                 workbook.SaveAs(rutaExcel);
@@ -290,7 +310,7 @@ namespace RevisionModelos
 
                 //Mensaje de prueba
 
-                TaskDialogResult mensajePrueba = TaskDialog.Show("Elementos encontrados 👇", "Cantidad de instancias: " + listaInstancias.Count.ToString());
+                TaskDialogResult mensajePrueba = TaskDialog.Show("Elementos encontrados 👇", "Cantidad de instancias: " + listaTypes.Count.ToString());
             }
 
             return Result.Succeeded;
