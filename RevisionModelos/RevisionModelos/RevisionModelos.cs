@@ -30,7 +30,7 @@ namespace RevisionModelos
             //Informacion de muestra
             List<string> conteos = new List<string> { "Cantidad de instances: " + ids.Count.ToString(), "Cantidad de vistas: " + views.Count.ToString(), "Cantidad de planos: " + sheets.Count.ToString() };
             string mensajeConteo = string.Join("\n", conteos);
-            TaskDialogResult mensajecontador = TaskDialog.Show("Elementos encontrados", mensajeConteo);
+            TaskDialogResult mensajecontador = TaskDialog.Show("Elementos encontrados 👇", mensajeConteo);
 
             #region OBTENER PARAMETROS DE VISTAS
 
@@ -84,6 +84,64 @@ namespace RevisionModelos
                 else
                 {
                     valoresSubGrupo.Add("Sin valor");
+                }
+
+            }
+
+            #endregion
+
+            #region OBTENER PARAMETROS DE PLANOS
+
+            //Lista de valor de los parametros name
+            List<string> valoresNameSheets = new List<string>();
+
+            //Obtencion de parametro name de las vistas
+            foreach (Element sheet in sheets)
+            {
+                string parametroName = sheet.Name;
+                if (parametroName != null)
+                {
+                    valoresNameSheets.Add(parametroName);
+                }
+                else
+                {
+                    valoresNameSheets.Add("Sin valor");
+                }
+
+            }
+
+            //Lista de valor de los parametros grupo
+            List<string> valoresGrupoSheets = new List<string>();
+
+            //Obtencion de parametro grupos de las vistas
+            foreach (Element sheet in sheets)
+            {
+                Parameter parametroGrupo = sheet.LookupParameter("BRH_GRUPO_NAVEGADOR");
+                if (parametroGrupo != null && parametroGrupo.HasValue)
+                {
+                    valoresGrupoSheets.Add(parametroGrupo.AsString());
+                }
+                else
+                {
+                    valoresGrupoSheets.Add("Sin valor");
+                }
+
+            }
+
+            //Lista de valor de los parametros Sub grupo
+            List<string> valoresSubGrupoSheets = new List<string>();
+
+            //Obtencion de parametro grupos de las vistas
+            foreach (Element vista in views)
+            {
+                Parameter parametroSubGrupo = vista.LookupParameter("BRH_GRUPO_NAVEGADOR");
+                if (parametroSubGrupo != null && parametroSubGrupo.HasValue)
+                {
+                    valoresSubGrupoSheets.Add(parametroSubGrupo.AsString());
+                }
+                else
+                {
+                    valoresSubGrupoSheets.Add("Sin valor");
                 }
 
             }
@@ -161,9 +219,61 @@ namespace RevisionModelos
                 #endregion
 
 
+                TaskDialogResult ts1 = TaskDialog.Show("Aviso 01 👇", "Hoja 01 completada 🚀");
+
+                //Escribir datos en la hoja
+
+                // Buscar la primera fila vacía para escribir los datos nuevos
+                int lastRowColumn2_1 = 2;
+
+                #region NOMBRES DE PLANOS
+
+
+                foreach (string nameSheet in valoresNameSheets)
+                {
+
+
+                    segundaHoja.Cell(lastRowColumn2_1, 1).Value = nameSheet;
+                    lastRowColumn2_1++;
+                }
+
+
+                #endregion
+
+
+                #region GRUPOS DE PLANOS
+
+                int lastRowColumn2_2 = 2;
+                foreach (string grupoSheet in valoresGrupoSheets)
+                {
+
+                    segundaHoja.Cell(lastRowColumn2_2, 2).Value = grupoSheet;
+                    lastRowColumn2_2++;
+
+                }
+
+                #endregion
+
+
+                #region SUBGRUPOS DE PLANOS
+
+                int lastRowColumn2_3 = 2;
+                foreach (string subGrupoSheet in valoresSubGrupoSheets)
+                {
+
+                    segundaHoja.Cell(lastRowColumn2_3, 3).Value = subGrupoSheet;
+                    lastRowColumn2_3++;
+
+                }
+
+                #endregion
+
+                TaskDialogResult ts2 = TaskDialog.Show("Aviso 02 👇", "Hoja 02 completada 🚀");
+
                 //Guardar archivo
                 workbook.SaveAs(rutaExcel);
-                TaskDialogResult ts = TaskDialog.Show("Mensaje", "Archivo Guardado");
+
+                TaskDialogResult ts = TaskDialog.Show("Realizado", "Archivo Guardado 👌");
             }
 
             return Result.Succeeded;
