@@ -108,3 +108,5 @@ C:\Users\UROGGIO\source\repos\Repositorio_Work\RevisionModelos\RevisionModelos\o
 C:\Users\UROGGIO\source\repos\Repositorio_Work\RevisionModelos\RevisionModelos\obj\Debug\Revision.BD18DDB0.Up2Date
 C:\Users\UROGGIO\source\repos\Repositorio_Work\RevisionModelos\RevisionModelos\obj\Debug\RevisionModelos.dll
 C:\Users\UROGGIO\source\repos\Repositorio_Work\RevisionModelos\RevisionModelos\obj\Debug\RevisionModelos.pdb
+C:\Users\UROGGIO\source\repos\Repositorio_Work\RevisionModelos\RevisionModelos\obj\Debug\RevisionModelos.csproj.GenerateResource.cache
+C:\Users\UROGGIO\source\repos\Repositorio_Work\RevisionModelos\RevisionModelos\obj\Debug\RevisionModelos.Forms.ModelReviser.resources
