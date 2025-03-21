@@ -76,7 +76,7 @@ namespace RevisionModelos
             //Obtencion de parametro grupos de las vistas
             foreach (Element vista in views)
             {
-                Parameter parametroSubGrupo = vista.LookupParameter("BRH_GRUPO_NAVEGADOR");
+                Parameter parametroSubGrupo = vista.LookupParameter("BRH_SUBGRUPO_NAVEGADOR");
                 if (parametroSubGrupo != null && parametroSubGrupo.HasValue)
                 {
                     valoresSubGrupo.Add(parametroSubGrupo.AsString());
@@ -132,9 +132,9 @@ namespace RevisionModelos
             List<string> valoresSubGrupoSheets = new List<string>();
 
             //Obtencion de parametro grupos de las vistas
-            foreach (Element vista in views)
+            foreach (Element sheet in sheets)
             {
-                Parameter parametroSubGrupo = vista.LookupParameter("BRH_GRUPO_NAVEGADOR");
+                Parameter parametroSubGrupo = sheet.LookupParameter("BRH_SUBGRUPO_NAVEGADOR");
                 if (parametroSubGrupo != null && parametroSubGrupo.HasValue)
                 {
                     valoresSubGrupoSheets.Add(parametroSubGrupo.AsString());
@@ -270,10 +270,27 @@ namespace RevisionModelos
 
                 TaskDialogResult ts2 = TaskDialog.Show("Aviso 02 👇", "Hoja 02 completada 🚀");
 
+                //Obtencion de parametros de cada instancia id 
+
+                List<Element> listaInstancias = new List<Element>();
+
+                foreach (ElementId id in ids)
+                {
+                    Element instancia = document.GetElement(id);
+                    listaInstancias.Add(instancia);
+                }
+
+                //Obtencion de parametros de cada instancia
+                List<string> nameParameters = new List<string> { "BRH_CategoriaElemento", "BRH_CodigoElemento", "BRH_ComponenteElemento", "BRH_IdElemento", "BRH_MetradoElemento", "BRH_SectorElemento", "BRH_SubSectorElemento", "BRH_TipoELemento", "BRH_TramoElemento"};
+
                 //Guardar archivo
                 workbook.SaveAs(rutaExcel);
 
                 TaskDialogResult ts = TaskDialog.Show("Realizado", "Archivo Guardado 👌");
+
+                //Mensaje de prueba
+
+                TaskDialogResult mensajePrueba = TaskDialog.Show("Elementos encontrados 👇", "Cantidad de instancias: " + listaInstancias.Count.ToString());
             }
 
             return Result.Succeeded;
