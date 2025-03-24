@@ -41,6 +41,29 @@ namespace RevisionModelos.Extensions
             }
 
             return instances;
-        }   
+        }
+        public static List<Element> GetFamily(this Document document)
+        {
+            //codigo obtencion de instancias
+            List<Element> instances = new List<Element>();
+
+            FilteredElementCollector collector = new FilteredElementCollector(document);
+            List<Element> familys = collector.OfClass(typeof(Family)).ToElements().ToList();
+            foreach (Element fam in familys)
+            {
+                instances.Add(fam);
+            }
+
+            return instances;
+        }
+        public static List<string> GetCategory(this Document document, int idCategoria)
+        {
+            //Nombre de categoria
+            FilteredElementCollector collector = new FilteredElementCollector(document);
+            List<string> name = collector.OfCategory((BuiltInCategory)idCategoria).Select(x => x.Name).ToList();
+
+            return name;
+        }
+
     }
 }

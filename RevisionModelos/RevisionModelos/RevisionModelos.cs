@@ -28,11 +28,7 @@ namespace RevisionModelos
             List<Element> instancesFamily = document.GetInstances();
             List<Element> views = document.GetViews();
             List<Element> sheets = document.GetSheets();
-
-            //Informacion de muestra
-            List<string> conteos = new List<string> { "Cantidad de instances: " + instancesFamily.Count.ToString(), "Cantidad de vistas: " + views.Count.ToString(), "Cantidad de planos: " + sheets.Count.ToString() };
-            string mensajeConteo = string.Join("\n", conteos);
-            TaskDialogResult mensajecontador = TaskDialog.Show("Elementos encontrados 👇", mensajeConteo);
+            List<Element> familys = document.GetFamily();
 
             #region OBTENER PARAMETROS DE VISTAS
 
@@ -283,34 +279,69 @@ namespace RevisionModelos
 
                 //Obtencion de nombre de cada familia
 
-                List<string> listaTypes = new List<string>();
+                //List<string> listaTypes = new List<string>();
 
-                foreach (FamilyInstance instance in instancesFamily)
-                {
-                    FamilySymbol symbol = instance.Symbol;
-                    if (symbol != null)
-                    {
-                        string familyName = symbol.FamilyName; //-----------> Nombre de la familia
-                        string typeName = symbol.Name; //-----------> Nombre del tipo de familia
-                        listaTypes.Add(familyName);
-                    }
-                }
+                //foreach (FamilyInstance instance in instancesFamily)
+                //{
+                //    FamilySymbol symbol = instance.Symbol;
+                //    if (symbol != null)
+                //    {
+                //        string familyName = symbol.FamilyName; //-----------> Nombre de la familia
+                //        string typeName = symbol.Name; //-----------> Nombre del tipo de familia
+                //        listaTypes.Add(familyName);
+                //    }
+                //}
 
-                int lastRow4_1 = 2;
-                foreach (string type in listaTypes)
+                //int lastRow4_1 = 2;
+                //foreach (string type in listaTypes)
+                //{
+                //    cuartaHoja.Cell(lastRow4_1, 1).Value = type;
+                //    lastRow4_1++;
+                //}
+
+                #region CUARTA HOJA 
+                //Exportar nombres de familias
+
+                List<string> listaFamilias = new List<string>();
+
+                int lastRowColumn3_1 = 2;
+                foreach (Element fam in familys)
                 {
-                    cuartaHoja.Cell(lastRow4_1, 1).Value = type;
-                    lastRow4_1++;
+
+                    cuartaHoja.Cell(lastRowColumn3_1, 1).Value = fam.Name;
+                    lastRowColumn3_1++;
+                    listaFamilias.Add(fam.Name);
+
                 }
 
                 //Guardar archivo
                 workbook.SaveAs(rutaExcel);
-
                 TaskDialogResult ts = TaskDialog.Show("Realizado", "Archivo Guardado 👌");
 
-                //Mensaje de prueba
+                //Obtener categoria de cada familia
 
-                TaskDialogResult mensajePrueba = TaskDialog.Show("Elementos encontrados 👇", "Cantidad de instancias: " + listaTypes.Count.ToString());
+                List<string> categoriasFamilias = new List<string>();
+
+                foreach (Element fam in familys)
+                {
+
+                    string categoriaFamilia = fam.Category.Name;
+                    categoriasFamilias.Add(categoriaFamilia);
+                }
+
+                // Diccionario de categorias
+                Dictionary<string, string> diccionarioCategorias = new Dictionary<string, string>();
+
+                diccionarioCategorias.Add(document.GetCategory(-2000151).ToString(), "GEN");
+
+                string msj = string.Join("\n", categoriasFamilias);
+
+
+                TaskDialogResult test = TaskDialog.Show("test", msj);
+
+                //Concatenar familias
+
+                #endregion
             }
 
             return Result.Succeeded;
