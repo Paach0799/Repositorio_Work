@@ -35,7 +35,7 @@ namespace RevisionModelos.Extensions
 
             FilteredElementCollector collector = new FilteredElementCollector(document);
             List<Element> Types = collector.OfClass(typeof(FamilyInstance)).ToElements().ToList();
-            foreach (Element inst in instances)
+            foreach (Element inst in Types)
             {
                 instances.Add(inst);
             }
@@ -45,24 +45,38 @@ namespace RevisionModelos.Extensions
         public static List<Element> GetFamily(this Document document)
         {
             //codigo obtencion de instancias
-            List<Element> instances = new List<Element>();
+            List<Element> familias = new List<Element>();
 
             FilteredElementCollector collector = new FilteredElementCollector(document);
             List<Element> familys = collector.OfClass(typeof(Family)).ToElements().ToList();
-            foreach (Element fam in familys)
+            foreach (Family fam in familys)
             {
-                instances.Add(fam);
+                familias.Add(fam);
             }
 
-            return instances;
+            return familias;
         }
-        public static List<string> GetCategory(this Document document, int idCategoria)
-        {
-            //Nombre de categoria
-            FilteredElementCollector collector = new FilteredElementCollector(document);
-            List<string> name = collector.OfCategory((BuiltInCategory)idCategoria).Select(x => x.Name).ToList();
 
-            return name;
+        public static List<string> GetCategoryFamily(this Document document)
+        {
+            //codigo obtencion de instancias
+            List<string> categorias = new List<string>();
+
+            FilteredElementCollector collector = new FilteredElementCollector(document);
+            List<Element> familias = collector.OfClass(typeof(Family)).ToElements().ToList();
+            foreach (Family cat in familias)
+            {
+                categorias.Add(cat.FamilyCategory.Name);
+            }
+            return categorias;
+        }
+        public static string GetCategoryName(this Document document, long id)
+        {
+            ElementId numberId = new ElementId(id);
+
+            string categoriaNombre = Category.GetCategory(document, numberId).Name;
+
+            return categoriaNombre;
         }
 
     }
