@@ -8,6 +8,7 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
+using System.Collections.ObjectModel;
 
 namespace RevisionModelos.Extensions
 {
@@ -56,7 +57,6 @@ namespace RevisionModelos.Extensions
 
             return familias;
         }
-
         public static List<string> GetCategoryFamily(this Document document)
         {
             //codigo obtencion de instancias
@@ -78,6 +78,64 @@ namespace RevisionModelos.Extensions
 
             return categoriaNombre;
         }
+        public static List<string> GetCategoryParameters(this Document document, BuiltInCategory category)
+        {
+            List<string> parameterNames = new List<string>();
 
+            FilteredElementCollector collector = new FilteredElementCollector(document);
+            collector.OfCategory(category);
+            collector.WhereElementIsNotElementType();
+
+            Element element = collector.FirstElement();
+            if (element != null)
+            {
+                foreach (Parameter parameter in element.Parameters)
+                {
+                    parameterNames.Add(parameter.Definition.Name);
+                }
+            }
+
+            return parameterNames;
+        }
+        public static List<string> GetParameterDefinitions(this Document document)
+        {
+            List<string> parameterDefinitions = new List<string>();
+
+            BindingMap parameterBindings = document.ParameterBindings;
+
+            DefinitionBindingMapIterator iterator = (DefinitionBindingMapIterator)parameterBindings.GetEnumerator();
+            iterator.Reset();
+
+            while (iterator.MoveNext())
+            {
+                Definition definition = iterator.Key as Definition;
+                if (definition != null)
+                {
+                    parameterDefinitions.Add(definition.Name);
+                }
+            }
+
+            return parameterDefinitions;
+        }
+        public static List<string> GetInstanceBinding(this Document document)
+        {
+            List<string> parameterDefinitions = new List<string>();
+
+            BindingMap parameterBindings = document.ParameterBindings;
+
+            DefinitionBindingMapIterator iterator = (DefinitionBindingMapIterator)parameterBindings.GetEnumerator();
+            iterator.Reset();
+
+            while (iterator.MoveNext())
+            {
+                Definition definition = iterator.Key as Definition;
+                Binding instance = parameterBindings.get_Item(definition);
+
+                
+
+            }
+
+            return parameterDefinitions;
+        }
     }
 }

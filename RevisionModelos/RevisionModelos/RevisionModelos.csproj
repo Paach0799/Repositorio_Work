@@ -100,6 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application.cs" />
+    <Compile Include="Extensions\ElementExtension.cs" />
     <Compile Include="Extensions\DocumentExtension.cs" />
     <Compile Include="Forms\FormApp.cs">
       <SubType>Form</SubType>

@@ -33,10 +33,10 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOk = new System.Windows.Forms.Button();
             this.grpHeader = new System.Windows.Forms.GroupBox();
-            this.tabBrowserParam = new System.Windows.Forms.TabPage();
-            this.boxBrowserParam = new System.Windows.Forms.GroupBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.tabViewParam = new System.Windows.Forms.TabPage();
+            this.boxViewParam = new System.Windows.Forms.GroupBox();
+            this.boxViewSub = new System.Windows.Forms.ComboBox();
+            this.boxViewGroup = new System.Windows.Forms.ComboBox();
             this.lblParam2 = new System.Windows.Forms.Label();
             this.lblParam1 = new System.Windows.Forms.Label();
             this.tabFile = new System.Windows.Forms.TabPage();
@@ -53,16 +53,24 @@
             this.boxSelectFile = new System.Windows.Forms.TextBox();
             this.boxFileTab = new System.Windows.Forms.GroupBox();
             this.tabControl = new System.Windows.Forms.TabControl();
+            this.tabSheetsParam = new System.Windows.Forms.TabPage();
+            this.boxSheetParam = new System.Windows.Forms.GroupBox();
+            this.boxSheetSub = new System.Windows.Forms.ComboBox();
+            this.boxSheetGroup = new System.Windows.Forms.ComboBox();
+            this.lblParam4 = new System.Windows.Forms.Label();
+            this.lblParam3 = new System.Windows.Forms.Label();
             this.tabElementParam = new System.Windows.Forms.TabPage();
             this.boxElementParam = new System.Windows.Forms.GroupBox();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
-            this.lblParam3 = new System.Windows.Forms.Label();
+            this.boxElemParam = new System.Windows.Forms.CheckedListBox();
+            this.lblParam9 = new System.Windows.Forms.Label();
             this.grpFooter.SuspendLayout();
             this.grpHeader.SuspendLayout();
-            this.tabBrowserParam.SuspendLayout();
-            this.boxBrowserParam.SuspendLayout();
+            this.tabViewParam.SuspendLayout();
+            this.boxViewParam.SuspendLayout();
             this.tabFile.SuspendLayout();
             this.tabControl.SuspendLayout();
+            this.tabSheetsParam.SuspendLayout();
+            this.boxSheetParam.SuspendLayout();
             this.tabElementParam.SuspendLayout();
             this.boxElementParam.SuspendLayout();
             this.SuspendLayout();
@@ -118,46 +126,46 @@
             this.grpHeader.TabIndex = 4;
             this.grpHeader.TabStop = false;
             // 
-            // tabBrowserParam
+            // tabViewParam
             // 
-            this.tabBrowserParam.Controls.Add(this.boxBrowserParam);
-            this.tabBrowserParam.Location = new System.Drawing.Point(4, 22);
-            this.tabBrowserParam.Name = "tabBrowserParam";
-            this.tabBrowserParam.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBrowserParam.Size = new System.Drawing.Size(330, 313);
-            this.tabBrowserParam.TabIndex = 1;
-            this.tabBrowserParam.Text = "Browser";
-            this.tabBrowserParam.UseVisualStyleBackColor = true;
+            this.tabViewParam.Controls.Add(this.boxViewParam);
+            this.tabViewParam.Location = new System.Drawing.Point(4, 22);
+            this.tabViewParam.Name = "tabViewParam";
+            this.tabViewParam.Padding = new System.Windows.Forms.Padding(3);
+            this.tabViewParam.Size = new System.Drawing.Size(330, 313);
+            this.tabViewParam.TabIndex = 3;
+            this.tabViewParam.Text = "Views";
+            this.tabViewParam.UseVisualStyleBackColor = true;
             // 
-            // boxBrowserParam
+            // boxViewParam
             // 
-            this.boxBrowserParam.Controls.Add(this.comboBox2);
-            this.boxBrowserParam.Controls.Add(this.comboBox1);
-            this.boxBrowserParam.Controls.Add(this.lblParam2);
-            this.boxBrowserParam.Controls.Add(this.lblParam1);
-            this.boxBrowserParam.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.boxBrowserParam.Location = new System.Drawing.Point(3, 3);
-            this.boxBrowserParam.Name = "boxBrowserParam";
-            this.boxBrowserParam.Size = new System.Drawing.Size(324, 307);
-            this.boxBrowserParam.TabIndex = 0;
-            this.boxBrowserParam.TabStop = false;
-            this.boxBrowserParam.Text = "Browser Parameters";
+            this.boxViewParam.Controls.Add(this.boxViewSub);
+            this.boxViewParam.Controls.Add(this.boxViewGroup);
+            this.boxViewParam.Controls.Add(this.lblParam2);
+            this.boxViewParam.Controls.Add(this.lblParam1);
+            this.boxViewParam.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.boxViewParam.Location = new System.Drawing.Point(3, 3);
+            this.boxViewParam.Name = "boxViewParam";
+            this.boxViewParam.Size = new System.Drawing.Size(324, 307);
+            this.boxViewParam.TabIndex = 1;
+            this.boxViewParam.TabStop = false;
+            this.boxViewParam.Text = "View Parameters";
             // 
-            // comboBox2
+            // boxViewSub
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(125, 45);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(193, 21);
-            this.comboBox2.TabIndex = 3;
+            this.boxViewSub.FormattingEnabled = true;
+            this.boxViewSub.Location = new System.Drawing.Point(125, 45);
+            this.boxViewSub.Name = "boxViewSub";
+            this.boxViewSub.Size = new System.Drawing.Size(193, 21);
+            this.boxViewSub.TabIndex = 3;
             // 
-            // comboBox1
+            // boxViewGroup
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(125, 20);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(193, 21);
-            this.comboBox1.TabIndex = 2;
+            this.boxViewGroup.FormattingEnabled = true;
+            this.boxViewGroup.Location = new System.Drawing.Point(125, 20);
+            this.boxViewGroup.Name = "boxViewGroup";
+            this.boxViewGroup.Size = new System.Drawing.Size(193, 21);
+            this.boxViewGroup.TabIndex = 2;
             // 
             // lblParam2
             // 
@@ -309,14 +317,74 @@
             // tabControl
             // 
             this.tabControl.Controls.Add(this.tabFile);
-            this.tabControl.Controls.Add(this.tabBrowserParam);
+            this.tabControl.Controls.Add(this.tabViewParam);
+            this.tabControl.Controls.Add(this.tabSheetsParam);
             this.tabControl.Controls.Add(this.tabElementParam);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Location = new System.Drawing.Point(0, 40);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(338, 339);
-            this.tabControl.TabIndex = 0;
+            this.tabControl.TabIndex = 2;
+            // 
+            // tabSheetsParam
+            // 
+            this.tabSheetsParam.Controls.Add(this.boxSheetParam);
+            this.tabSheetsParam.Location = new System.Drawing.Point(4, 22);
+            this.tabSheetsParam.Name = "tabSheetsParam";
+            this.tabSheetsParam.Padding = new System.Windows.Forms.Padding(3);
+            this.tabSheetsParam.Size = new System.Drawing.Size(330, 313);
+            this.tabSheetsParam.TabIndex = 4;
+            this.tabSheetsParam.Text = "Sheets";
+            this.tabSheetsParam.UseVisualStyleBackColor = true;
+            // 
+            // boxSheetParam
+            // 
+            this.boxSheetParam.Controls.Add(this.boxSheetSub);
+            this.boxSheetParam.Controls.Add(this.boxSheetGroup);
+            this.boxSheetParam.Controls.Add(this.lblParam4);
+            this.boxSheetParam.Controls.Add(this.lblParam3);
+            this.boxSheetParam.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.boxSheetParam.Location = new System.Drawing.Point(3, 3);
+            this.boxSheetParam.Name = "boxSheetParam";
+            this.boxSheetParam.Size = new System.Drawing.Size(324, 307);
+            this.boxSheetParam.TabIndex = 2;
+            this.boxSheetParam.TabStop = false;
+            this.boxSheetParam.Text = "Sheet Parameters";
+            // 
+            // boxSheetSub
+            // 
+            this.boxSheetSub.FormattingEnabled = true;
+            this.boxSheetSub.Location = new System.Drawing.Point(125, 45);
+            this.boxSheetSub.Name = "boxSheetSub";
+            this.boxSheetSub.Size = new System.Drawing.Size(193, 21);
+            this.boxSheetSub.TabIndex = 3;
+            // 
+            // boxSheetGroup
+            // 
+            this.boxSheetGroup.FormattingEnabled = true;
+            this.boxSheetGroup.Location = new System.Drawing.Point(125, 20);
+            this.boxSheetGroup.Name = "boxSheetGroup";
+            this.boxSheetGroup.Size = new System.Drawing.Size(193, 21);
+            this.boxSheetGroup.TabIndex = 2;
+            // 
+            // lblParam4
+            // 
+            this.lblParam4.AutoSize = true;
+            this.lblParam4.Location = new System.Drawing.Point(10, 50);
+            this.lblParam4.Name = "lblParam4";
+            this.lblParam4.Size = new System.Drawing.Size(107, 13);
+            this.lblParam4.TabIndex = 1;
+            this.lblParam4.Text = "Subgroup Parameter:";
+            // 
+            // lblParam3
+            // 
+            this.lblParam3.AutoSize = true;
+            this.lblParam3.Location = new System.Drawing.Point(10, 25);
+            this.lblParam3.Name = "lblParam3";
+            this.lblParam3.Size = new System.Drawing.Size(90, 13);
+            this.lblParam3.TabIndex = 0;
+            this.lblParam3.Text = "Group Parameter:";
             // 
             // tabElementParam
             // 
@@ -331,8 +399,8 @@
             // 
             // boxElementParam
             // 
-            this.boxElementParam.Controls.Add(this.checkedListBox1);
-            this.boxElementParam.Controls.Add(this.lblParam3);
+            this.boxElementParam.Controls.Add(this.boxElemParam);
+            this.boxElementParam.Controls.Add(this.lblParam9);
             this.boxElementParam.Dock = System.Windows.Forms.DockStyle.Fill;
             this.boxElementParam.Location = new System.Drawing.Point(3, 3);
             this.boxElementParam.Name = "boxElementParam";
@@ -341,22 +409,22 @@
             this.boxElementParam.TabStop = false;
             this.boxElementParam.Text = "Element Parameters";
             // 
-            // checkedListBox1
+            // boxElemParam
             // 
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(125, 20);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(193, 154);
-            this.checkedListBox1.TabIndex = 2;
+            this.boxElemParam.FormattingEnabled = true;
+            this.boxElemParam.Location = new System.Drawing.Point(125, 20);
+            this.boxElemParam.Name = "boxElemParam";
+            this.boxElemParam.Size = new System.Drawing.Size(193, 154);
+            this.boxElemParam.TabIndex = 2;
             // 
-            // lblParam3
+            // lblParam9
             // 
-            this.lblParam3.AutoSize = true;
-            this.lblParam3.Location = new System.Drawing.Point(10, 25);
-            this.lblParam3.Name = "lblParam3";
-            this.lblParam3.Size = new System.Drawing.Size(90, 13);
-            this.lblParam3.TabIndex = 0;
-            this.lblParam3.Text = "Group Parameter:";
+            this.lblParam9.AutoSize = true;
+            this.lblParam9.Location = new System.Drawing.Point(10, 25);
+            this.lblParam9.Name = "lblParam9";
+            this.lblParam9.Size = new System.Drawing.Size(90, 13);
+            this.lblParam9.TabIndex = 0;
+            this.lblParam9.Text = "Group Parameter:";
             // 
             // ModelReviser
             // 
@@ -377,15 +445,19 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormApp";
             this.TopMost = true;
+            this.Load += new System.EventHandler(this.ModelReviser_Load);
             this.grpFooter.ResumeLayout(false);
             this.grpHeader.ResumeLayout(false);
             this.grpHeader.PerformLayout();
-            this.tabBrowserParam.ResumeLayout(false);
-            this.boxBrowserParam.ResumeLayout(false);
-            this.boxBrowserParam.PerformLayout();
+            this.tabViewParam.ResumeLayout(false);
+            this.boxViewParam.ResumeLayout(false);
+            this.boxViewParam.PerformLayout();
             this.tabFile.ResumeLayout(false);
             this.tabFile.PerformLayout();
             this.tabControl.ResumeLayout(false);
+            this.tabSheetsParam.ResumeLayout(false);
+            this.boxSheetParam.ResumeLayout(false);
+            this.boxSheetParam.PerformLayout();
             this.tabElementParam.ResumeLayout(false);
             this.boxElementParam.ResumeLayout(false);
             this.boxElementParam.PerformLayout();
@@ -397,7 +469,6 @@
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.GroupBox grpFooter;
         private System.Windows.Forms.GroupBox grpHeader;
-        private System.Windows.Forms.TabPage tabBrowserParam;
         private System.Windows.Forms.TabPage tabFile;
         private System.Windows.Forms.ComboBox boxSheet4;
         private System.Windows.Forms.ComboBox boxSheet3;
@@ -413,15 +484,22 @@
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.GroupBox boxBrowserParam;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Label lblParam2;
-        private System.Windows.Forms.Label lblParam1;
         private System.Windows.Forms.TabPage tabElementParam;
         private System.Windows.Forms.GroupBox boxElementParam;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
-        private System.Windows.Forms.Label lblParam3;
+        private System.Windows.Forms.CheckedListBox boxElemParam;
+        private System.Windows.Forms.Label lblParam9;
         private System.Windows.Forms.GroupBox boxFileTab;
+        private System.Windows.Forms.TabPage tabViewParam;
+        private System.Windows.Forms.TabPage tabSheetsParam;
+        private System.Windows.Forms.GroupBox boxViewParam;
+        private System.Windows.Forms.ComboBox boxViewSub;
+        private System.Windows.Forms.ComboBox boxViewGroup;
+        private System.Windows.Forms.Label lblParam2;
+        private System.Windows.Forms.Label lblParam1;
+        private System.Windows.Forms.GroupBox boxSheetParam;
+        private System.Windows.Forms.ComboBox boxSheetSub;
+        private System.Windows.Forms.ComboBox boxSheetGroup;
+        private System.Windows.Forms.Label lblParam4;
+        private System.Windows.Forms.Label lblParam3;
     }
 }

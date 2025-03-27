@@ -31,128 +31,18 @@ namespace RevisionModelos
             List<Element> sheets = document.GetSheets();
             List<Element> familys = document.GetFamily();
 
-            #region OBTENER PARAMETROS DE VISTAS
+            // View parameters
+            List<string> viewNames = views.GetValueParameter(BuiltInParameter.VIEW_NAME);
+            List<string> viewGroupNames = views.GetValueParameter("BRH_GRUPO_NAVEGADOR");
+            List<string> viewSubGroupNames = views.GetValueParameter("BRH_SUBGRUPO_NAVEGADOR");
 
-            //Lista de valor de los parametros name
-            List<string> valoresName = new List<string>();
-
-            //Obtencion de parametro name de las vistas
-            foreach (Element vista in views)
-            {
-                string parametroName = vista.Name;
-                if (parametroName != null)
-                {
-                    valoresName.Add(parametroName);
-                }
-                else
-                {
-                    valoresName.Add("Sin valor");
-                }
-
-            }
-
-            //Lista de valor de los parametros grupo
-            List<string> valoresGrupo = new List<string>();
-
-            //Obtencion de parametro grupos de las vistas
-            foreach (Element vista in views)
-            {
-                Parameter parametroGrupo = vista.LookupParameter("BRH_GRUPO_NAVEGADOR");
-                if (parametroGrupo != null && parametroGrupo.HasValue)
-                {
-                    valoresGrupo.Add(parametroGrupo.AsString());
-                }
-                else
-                {
-                    valoresGrupo.Add("Sin valor");
-                }
-
-            }
-
-            //Lista de valor de los parametros Sub grupo
-            List<string> valoresSubGrupo = new List<string>();
-
-            //Obtencion de parametro grupos de las vistas
-            foreach (Element vista in views)
-            {
-                Parameter parametroSubGrupo = vista.LookupParameter("BRH_SUBGRUPO_NAVEGADOR");
-                if (parametroSubGrupo != null && parametroSubGrupo.HasValue)
-                {
-                    valoresSubGrupo.Add(parametroSubGrupo.AsString());
-                }
-                else
-                {
-                    valoresSubGrupo.Add("Sin valor");
-                }
-
-            }
-
-            #endregion
-
-            #region OBTENER PARAMETROS DE PLANOS
-
-            //Lista de valor de los parametros name
-            List<string> valoresNameSheets = new List<string>();
-
-            //Obtencion de parametro name de las vistas
-            foreach (Element sheet in sheets)
-            {
-                string parametroName = sheet.Name;
-                if (parametroName != null)
-                {
-                    valoresNameSheets.Add(parametroName);
-                }
-                else
-                {
-                    valoresNameSheets.Add("Sin valor");
-                }
-
-            }
-
-            //Lista de valor de los parametros grupo
-            List<string> valoresGrupoSheets = new List<string>();
-
-            //Obtencion de parametro grupos de las vistas
-            foreach (Element sheet in sheets)
-            {
-                Parameter parametroGrupo = sheet.LookupParameter("BRH_GRUPO_NAVEGADOR");
-                if (parametroGrupo != null && parametroGrupo.HasValue)
-                {
-                    valoresGrupoSheets.Add(parametroGrupo.AsString());
-                }
-                else
-                {
-                    valoresGrupoSheets.Add("Sin valor");
-                }
-
-            }
-
-            //Lista de valor de los parametros Sub grupo
-            List<string> valoresSubGrupoSheets = new List<string>();
-
-            //Obtencion de parametro grupos de las vistas
-            foreach (Element sheet in sheets)
-            {
-                Parameter parametroSubGrupo = sheet.LookupParameter("BRH_SUBGRUPO_NAVEGADOR");
-                if (parametroSubGrupo != null && parametroSubGrupo.HasValue)
-                {
-                    valoresSubGrupoSheets.Add(parametroSubGrupo.AsString());
-                }
-                else
-                {
-                    valoresSubGrupoSheets.Add("Sin valor");
-                }
-
-            }
-
-            #endregion
-
-            #region CREAR ARCHIVO EXCEL
+            // Sheet parameters
+            List<string> sheetNames = sheets.GetValueParameter(BuiltInParameter.VIEW_NAME);
+            List<string> sheetGroupNames = sheets.GetValueParameter("BRH_GRUPO_NAVEGADOR");
+            List<string> sheetSubGroupNames = sheets.GetValueParameter("BRH_GRUPO_NAVEGADOR");
 
             //Definir varibles para archivo excel
             string rutaExcel = @"D:\WIP_SCRIPTS\INP\Check_Models.xlsx";
-
-            #endregion
 
             // Abrir libro de excel
             using (var workbook = new XLWorkbook(rutaExcel))
@@ -171,7 +61,7 @@ namespace RevisionModelos
 
                 #region NOMBRES DE VISTAS
 
-                foreach (string nameVista in valoresName)
+                foreach (string nameVista in viewNames)
                 {
                     primeraHoja.Cell(lastRowColumn1, 1).Value = nameVista;
                     lastRowColumn1++;
@@ -182,7 +72,7 @@ namespace RevisionModelos
                 #region GRUPOS DE VISTAS
 
                 int lastRowColumn2 = 2;
-                foreach (string grupoVista in valoresGrupo)
+                foreach (string grupoVista in viewGroupNames)
                 {
 
                     primeraHoja.Cell(lastRowColumn2,2).Value = grupoVista;
@@ -195,7 +85,7 @@ namespace RevisionModelos
                 #region SUBGRUPOS DE VISTAS
 
                 int lastRowColumn3 = 2;
-                foreach (string subGrupoVista in valoresSubGrupo)
+                foreach (string subGrupoVista in viewSubGroupNames)
                 {
 
                     primeraHoja.Cell(lastRowColumn3, 3).Value = subGrupoVista;
@@ -213,27 +103,21 @@ namespace RevisionModelos
 
                 #region NOMBRES DE PLANOS
 
-
-                foreach (string nameSheet in valoresNameSheets)
+                foreach (string nameSheet in sheetNames)
                 {
-
-
                     segundaHoja.Cell(lastRowColumn2_1, 1).Value = nameSheet;
                     lastRowColumn2_1++;
                 }
-
 
                 #endregion
 
                 #region GRUPOS DE PLANOS
 
                 int lastRowColumn2_2 = 2;
-                foreach (string grupoSheet in valoresGrupoSheets)
+                foreach (string grupoSheet in sheetGroupNames)
                 {
-
                     segundaHoja.Cell(lastRowColumn2_2, 2).Value = grupoSheet;
                     lastRowColumn2_2++;
-
                 }
 
                 #endregion
@@ -241,7 +125,7 @@ namespace RevisionModelos
                 #region SUBGRUPOS DE PLANOS
 
                 int lastRowColumn2_3 = 2;
-                foreach (string subGrupoSheet in valoresSubGrupoSheets)
+                foreach (string subGrupoSheet in sheetSubGroupNames)
                 {
 
                     segundaHoja.Cell(lastRowColumn2_3, 3).Value = subGrupoSheet;
@@ -256,7 +140,18 @@ namespace RevisionModelos
                 #region TERCERA HOJA EN PROCESO
 
                 //Obtencion de parametros de cada instancia
-                List<string> nameParameters = new List<string> { "BRH_CategoriaElemento", "BRH_CodigoElemento", "BRH_ComponenteElemento", "BRH_IdElemento", "BRH_MetradoElemento", "BRH_SectorElemento", "BRH_SubSectorElemento", "BRH_TipoELemento", "BRH_TramoElemento" };
+                List<string> nameParameters = new List<string> 
+                {
+                    "BRH_CategoriaElemento", 
+                    "BRH_CodigoElemento", 
+                    "BRH_ComponenteElemento", 
+                    "BRH_IdElemento", 
+                    "BRH_MetradoElemento", 
+                    "BRH_SectorElemento", 
+                    "BRH_SubSectorElemento", 
+                    "BRH_TipoELemento", 
+                    "BRH_TramoElemento" 
+                };
 
                 List<List<string>> valoresParametrosInstance = new List<List<string>>();
                 int lastRowColumn4_1 = 2;
@@ -279,8 +174,7 @@ namespace RevisionModelos
                 }
 
                 foreach (FamilyInstance instance in instancesFamily)
-                {
-                    
+                {                   
 
                     List<string> valoresParametros = UtilsInstances.GetValueParametersElement(instance, nameParameters);
                     valoresParametrosInstance.Add(valoresParametros);
@@ -298,7 +192,6 @@ namespace RevisionModelos
                             terceraHoja.Cell(lastRowColumn4_1, lastColumn).Value = valor;
                             lastColumn++;
                         }
-
                     }
 
                     lastRowColumn4_1++;
