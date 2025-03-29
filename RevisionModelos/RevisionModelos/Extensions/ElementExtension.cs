@@ -13,7 +13,7 @@ namespace RevisionModelos.Extensions
 {
     public static class ElementExtension 
     {
-        public static List<string> GetValueParameter (this List<Element> elements, BuiltInParameter parameterId)
+        public static List<string> GetValueParameter(this List<Element> elements, BuiltInParameter parameterId)
         {
             List<string> values = new List<string>();
 

@@ -9,6 +9,7 @@ using Autodesk.Revit.UI;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 using System.Collections.ObjectModel;
+using System.Collections;
 
 namespace RevisionModelos.Extensions
 {
@@ -97,7 +98,7 @@ namespace RevisionModelos.Extensions
 
             return parameterNames;
         }
-        public static List<string> GetParameterDefinitions(this Document document)
+        public static List<string> GetDefinitions(this Document document)
         {
             List<string> parameterDefinitions = new List<string>();
 
@@ -117,9 +118,9 @@ namespace RevisionModelos.Extensions
 
             return parameterDefinitions;
         }
-        public static List<string> GetInstanceBinding(this Document document)
+        public static List<Dictionary<string, List<Category>>> GetDefinitionCategoryMapping(this Document document)
         {
-            List<string> parameterDefinitions = new List<string>();
+            List<Dictionary<string, List<Category>>> definitionCategoryMapping = new List<Dictionary<string, List<Category>>>();
 
             BindingMap parameterBindings = document.ParameterBindings;
 
@@ -129,13 +130,72 @@ namespace RevisionModelos.Extensions
             while (iterator.MoveNext())
             {
                 Definition definition = iterator.Key as Definition;
-                Binding instance = parameterBindings.get_Item(definition);
+                if (definition != null)
+                {
+                    InstanceBinding instanceBinding = parameterBindings.get_Item(definition) as InstanceBinding;
+                    if (instanceBinding != null)
+                    {
+                        CategorySet categorySet = instanceBinding.Categories;
+                        List<Category> categories = new List<Category>();
 
-                
+                        IEnumerator enumerator = categorySet.GetEnumerator();
+                        enumerator.Reset();
+                        while (enumerator.MoveNext())
+                        {
+                            Category category = enumerator.Current as Category;
+                            if (category != null)
+                            {
+                                categories.Add(category);
+                            }
+                        }
 
+                        // Add the definition and categories as a dictionary entry
+                        definitionCategoryMapping.Add(new Dictionary<string, List<Category>>
+                        {
+                            { definition.Name, categories }
+                        });
+                    }
+                }
             }
 
-            return parameterDefinitions;
+            return definitionCategoryMapping;
         }
+        public static List<string> GetDefinitionsForCategory(this Document document, string categoryName)
+        {
+            List<string> definitions = new List<string>();
+
+            BindingMap parameterBindings = document.ParameterBindings;
+
+            DefinitionBindingMapIterator iterator = (DefinitionBindingMapIterator)parameterBindings.GetEnumerator();
+            iterator.Reset();
+
+            while (iterator.MoveNext())
+            {
+                Definition definition = iterator.Key as Definition;
+                if (definition != null)
+                {
+                    InstanceBinding instanceBinding = parameterBindings.get_Item(definition) as InstanceBinding;
+                    if (instanceBinding != null)
+                    {
+                        CategorySet categorySet = instanceBinding.Categories;
+
+                        IEnumerator enumerator = categorySet.GetEnumerator();
+                        enumerator.Reset();
+                        while (enumerator.MoveNext())
+                        {
+                            Category category = enumerator.Current as Category;
+                            if (category != null && category.Name == categoryName)
+                            {
+                                definitions.Add(definition.Name);
+                                break; // Stop checking other categories for this definition
+                            }
+                        }
+                    }
+                }
+            }
+
+            return definitions;
+        }
+
     }
 }

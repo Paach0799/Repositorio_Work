@@ -13,6 +13,7 @@ using RevitApp = Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 using ClosedXML.Excel;
 using RevisionModelos.Extensions;
+using Autodesk.Revit.UI;
 
 namespace RevisionModelos.Forms
 {
@@ -63,23 +64,36 @@ namespace RevisionModelos.Forms
 
         private void ModelReviser_Load(object sender, EventArgs e)
         {
-            List<string> viewParameters = document.GetCategoryParameters(RevitDB.BuiltInCategory.OST_Sections);
+            List<string> viewParameters = document.GetDefinitionsForCategory("Views");
             foreach (string viewParameter in viewParameters)
             {
                 boxViewGroup.Items.Add(viewParameters);
                 boxViewSub.Items.Add(viewParameters);
             }
-            List<string> sheetParameters = document.GetCategoryParameters(RevitDB.BuiltInCategory.OST_Sheets);
+            List<string> sheetParameters = document.GetDefinitionsForCategory("Sheets");
             foreach (string sheetParameter in sheetParameters)
             {
                 boxSheetGroup.Items.Add(sheetParameter);
                 boxSheetSub.Items.Add(sheetParameter);
             }
-            List<string> elementParameters = document.GetParameterDefinitions();
-            foreach (string sheetParameter in elementParameters)
+            List<string> elementParameters = document.GetDefinitions();
+            foreach (string elementParameter in elementParameters)
             {
-                boxElemParam.Items.Add(sheetParameter);
+                boxElemParam.Items.Add(elementParameter);
             }
+        }
+
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            List<string> definitions = document.GetDefinitionsForCategory("Sheets");
+
+            foreach (string definition in definitions)
+            {
+                stringBuilder.Append($"{definition} \n");
+            }
+            TaskDialog.Show("Definitions", stringBuilder.ToString());
         }
     }
 }

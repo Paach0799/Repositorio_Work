@@ -23,9 +23,6 @@ namespace RevisionModelos
             app.ShowDialog();
 
             return RevitUI.Result.Succeeded;
-
-
-
         }
     }
 }
