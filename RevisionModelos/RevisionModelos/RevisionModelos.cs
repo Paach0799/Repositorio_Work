@@ -48,47 +48,37 @@ namespace RevisionModelos
             using (var workbook = new XLWorkbook(rutaExcel))
             {
                 // Obtener hoja de excel de vistas
-                var primeraHoja = workbook.Worksheet("VISTAS");
+                var viewSheet = workbook.Worksheet("VISTAS");
                 // Obtener hoja de excel de planos
-                var segundaHoja = workbook.Worksheet("SHEETS");
+                var sheetSheet = workbook.Worksheet("SHEETS");
                 // Obtener hoja de excel de familias
-                var terceraHoja = workbook.Worksheet("PARAMETROS_ELEMENTOS");
+                var parameterSheet = workbook.Worksheet("PARAMETROS_ELEMENTOS");
                 // Obtener hoja de excel de parametros de elementos
-                var cuartaHoja = workbook.Worksheet("FAMILIAS");
+                var familySheet = workbook.Worksheet("FAMILIAS");
                 //Escribir datos en la hoja
                 // Buscar la primera fila vacía para escribir los datos nuevos
                 int lastRowColumn1 = 2;
 
-                #region NOMBRES DE VISTAS
+                #region VISTAS
 
                 foreach (string nameVista in viewNames)
                 {
-                    primeraHoja.Cell(lastRowColumn1, 1).Value = nameVista;
+                    viewSheet.Cell(lastRowColumn1, 1).Value = nameVista;
                     lastRowColumn1++;
                 }
-
-                #endregion
-
-                #region GRUPOS DE VISTAS
-
                 int lastRowColumn2 = 2;
                 foreach (string grupoVista in viewGroupNames)
                 {
 
-                    primeraHoja.Cell(lastRowColumn2,2).Value = grupoVista;
+                    viewSheet.Cell(lastRowColumn2,2).Value = grupoVista;
                     lastRowColumn2++;
 
                 }
-
-                #endregion
-
-                #region SUBGRUPOS DE VISTAS
-
                 int lastRowColumn3 = 2;
                 foreach (string subGrupoVista in viewSubGroupNames)
                 {
 
-                    primeraHoja.Cell(lastRowColumn3, 3).Value = subGrupoVista;
+                    viewSheet.Cell(lastRowColumn3, 3).Value = subGrupoVista;
                     lastRowColumn3++;
 
                 }
@@ -101,34 +91,26 @@ namespace RevisionModelos
                 // Buscar la primera fila vacía para escribir los datos nuevos
                 int lastRowColumn2_1 = 2;
 
-                #region NOMBRES DE PLANOS
+                #region PLANOS
 
                 foreach (string nameSheet in sheetNames)
                 {
-                    segundaHoja.Cell(lastRowColumn2_1, 1).Value = nameSheet;
+                    sheetSheet.Cell(lastRowColumn2_1, 1).Value = nameSheet;
                     lastRowColumn2_1++;
                 }
-
-                #endregion
-
-                #region GRUPOS DE PLANOS
 
                 int lastRowColumn2_2 = 2;
                 foreach (string grupoSheet in sheetGroupNames)
                 {
-                    segundaHoja.Cell(lastRowColumn2_2, 2).Value = grupoSheet;
+                    sheetSheet.Cell(lastRowColumn2_2, 2).Value = grupoSheet;
                     lastRowColumn2_2++;
                 }
-
-                #endregion
-
-                #region SUBGRUPOS DE PLANOS
 
                 int lastRowColumn2_3 = 2;
                 foreach (string subGrupoSheet in sheetSubGroupNames)
                 {
 
-                    segundaHoja.Cell(lastRowColumn2_3, 3).Value = subGrupoSheet;
+                    sheetSheet.Cell(lastRowColumn2_3, 3).Value = subGrupoSheet;
                     lastRowColumn2_3++;
 
                 }
@@ -160,7 +142,7 @@ namespace RevisionModelos
 
                 foreach (string param in nameParameters)
                 {
-                    terceraHoja.Cell(lastRowColumn4_2, columnIni).Value = param;
+                    parameterSheet.Cell(lastRowColumn4_2, columnIni).Value = param;
                     columnIni++;
                 }
 
@@ -169,7 +151,7 @@ namespace RevisionModelos
                 foreach (var inst in instancesFamily)
                 {
                     string name = inst.Name;
-                    terceraHoja.Cell(lastRowColumn4_3, 1).Value = name;
+                    parameterSheet.Cell(lastRowColumn4_3, 1).Value = name;
                     lastRowColumn4_3++;
                 }
 
@@ -184,12 +166,12 @@ namespace RevisionModelos
                     {
                         if (valor == null)
                         {
-                            terceraHoja.Cell(lastRowColumn4_1, lastColumn).Value = "FALTA";
+                            parameterSheet.Cell(lastRowColumn4_1, lastColumn).Value = "FALTA";
                             lastColumn++;
                         }
                         else
                         {
-                            terceraHoja.Cell(lastRowColumn4_1, lastColumn).Value = valor;
+                            parameterSheet.Cell(lastRowColumn4_1, lastColumn).Value = valor;
                             lastColumn++;
                         }
                     }
@@ -211,7 +193,7 @@ namespace RevisionModelos
                 int lastRowColumn3_1 = 2;
                 foreach (Element fam in familys)
                 {
-                    cuartaHoja.Cell(lastRowColumn3_1, 1).Value = fam.Name;
+                    familySheet.Cell(lastRowColumn3_1, 1).Value = fam.Name;
                     lastRowColumn3_1++;
                     listaFamilias.Add(fam.Name);
                 }
@@ -234,7 +216,7 @@ namespace RevisionModelos
 
                 foreach (string cat in categoryfamilys)
                 {
-                    cuartaHoja.Cell(lastRowColumn3_2, 2).Value = cat;
+                    familySheet.Cell(lastRowColumn3_2, 2).Value = cat;
                     lastRowColumn3_2++;
 
                 }
@@ -251,7 +233,7 @@ namespace RevisionModelos
                     {
                         string concatenado = creador + "_" + diccionarioCategorias[cat] + "_";
 
-                        cuartaHoja.Cell(lastRowColumn3_3, 3).Value = concatenado;
+                        familySheet.Cell(lastRowColumn3_3, 3).Value = concatenado;
                         lastRowColumn3_3++;
                         continue;
                     }
@@ -259,7 +241,7 @@ namespace RevisionModelos
                     {
                         string concatenado = "N/A";
 
-                        cuartaHoja.Cell(lastRowColumn3_3, 3).Value = concatenado;
+                        familySheet.Cell(lastRowColumn3_3, 3).Value = concatenado;
                         lastRowColumn3_3++;
                     }
 
@@ -273,14 +255,14 @@ namespace RevisionModelos
                     if (famName.Length < 8)
                     {
                         string recorte = famName.Substring(0, famName.Length);
-                        cuartaHoja.Cell(lastRowColumn3_4, 4).Value = recorte;
+                        familySheet.Cell(lastRowColumn3_4, 4).Value = recorte;
                         lastRowColumn3_4++;
                         continue;
                     }
                     else
                     {
                         string recorte = famName.Substring(0, 8);
-                        cuartaHoja.Cell(lastRowColumn3_4, 4).Value = recorte;
+                        familySheet.Cell(lastRowColumn3_4, 4).Value = recorte;
                         lastRowColumn3_4++;
                     }
                 }

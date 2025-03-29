@@ -31,6 +31,21 @@ namespace RevisionModelos.Utils
             }
             return parametros;
         }
+        public static string GetValueParameterElement(Element instancia, string parameterName)
+        {
+            string value;
 
+            Parameter parameter = instancia.LookupParameter(parameterName);
+            if (parameter != null)
+            {
+                value = parameter.AsString();
+            }
+            else
+            {
+                value = "Sin valor";
+            }
+            
+            return value;
+        }
     }
 }

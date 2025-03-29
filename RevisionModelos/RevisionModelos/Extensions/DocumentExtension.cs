@@ -17,7 +17,6 @@ namespace RevisionModelos.Extensions
     {
         public static List<Element> GetViews (this Document document)
         {
-            //codigo obtencion de vistas
             FilteredElementCollector collector = new FilteredElementCollector(document);
             List<Element> views = collector.OfClass(typeof(View)).ToElements().ToList();
 
@@ -25,14 +24,12 @@ namespace RevisionModelos.Extensions
         }
         public static List<Element> GetSheets(this Document document)
         {
-            //codigo obtencion de planos
             FilteredElementCollector collector = new FilteredElementCollector(document);
             List<Element> sheets = collector.OfClass(typeof(ViewSheet)).ToElements().ToList();
             return sheets;
         }
         public static List<Element> GetInstances(this Document document)
         {
-            //codigo obtencion de instancias
             List<Element> instances = new List<Element>();
 
             FilteredElementCollector collector = new FilteredElementCollector(document);
@@ -46,7 +43,6 @@ namespace RevisionModelos.Extensions
         }
         public static List<Element> GetFamily(this Document document)
         {
-            //codigo obtencion de instancias
             List<Element> familias = new List<Element>();
 
             FilteredElementCollector collector = new FilteredElementCollector(document);
@@ -60,7 +56,6 @@ namespace RevisionModelos.Extensions
         }
         public static List<string> GetCategoryFamily(this Document document)
         {
-            //codigo obtencion de instancias
             List<string> categorias = new List<string>();
 
             FilteredElementCollector collector = new FilteredElementCollector(document);
